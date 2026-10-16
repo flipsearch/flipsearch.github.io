@@ -1,0 +1,50 @@
+:root {
+  --paper: #F6F1E7;
+  --card: #FFFDF8;
+  --ink: #2B2A28;
+  --muted: #6F6A61;
+  --coral: #E4572E;
+  --teal: #2A9D8F;
+  --line: #E6DFD1;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #121110;
+    --card: #1E1C1A;
+    --ink: #EFE8DA;
+    --muted: #A49D91;
+    --coral: #F07A55;
+    --teal: #4CC3B4;
+    --line: #2E2B28;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "Segoe UI", Roboto, sans-serif;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 56px; }
+header.site { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+.logo { font-weight: 800; font-size: 22px; text-decoration: none; color: var(--ink); letter-spacing: -0.01em; }
+.logo .flip { display: inline-block; transform: rotate(180deg); color: var(--teal); margin-right: 4px; }
+nav a { color: var(--muted); text-decoration: none; margin-left: 16px; font-weight: 600; font-size: 15px; }
+nav a:hover, nav a[aria-current="page"] { color: var(--coral); }
+h1 { font-size: 38px; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.02em; }
+h2 { font-size: 22px; margin: 36px 0 8px; }
+h3 { font-size: 18px; margin: 24px 0 4px; }
+p, li { color: var(--ink); }
+.lead { font-size: 19px; color: var(--muted); margin-top: 0; }
+.muted { color: var(--muted); }
+a { color: var(--coral); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; margin: 16px 0; }
+.button { display: inline-block; background: var(--coral); color: #fff; text-decoration: none; font-weight: 700; padding: 12px 20px; border-radius: 999px; margin: 6px 8px 6px 0; }
+.button.secondary { background: var(--teal); }
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; padding: 0; list-style: none; }
+.features li { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.features strong { display: block; margin-bottom: 2px; }
+details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; margin: 10px 0; }
+summary { font-weight: 700; cursor: pointer; }
+footer.site { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+footer.site a { color: var(--muted); margin-right: 14px; }
