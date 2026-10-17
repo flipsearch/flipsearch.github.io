@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Support · Flip Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,11 +15,18 @@
     <a class="logo" href="./"><span class="flip">Flip</span>Search</a>
     <nav><a href="./">Home</a><a href="support.html" aria-current="page">Support</a><a href="privacy.html">Privacy</a></nav>
   </header>
+</div>
 
-  <h1>Support</h1>
-  <p class="lead">Questions, problems or puzzle ideas? Email <a href="mailto:flipsearch.app@gmail.com?subject=Flip%20Search">flipsearch.app@gmail.com</a>. Please include your device (for example, iPhone 15) and what happened.</p>
+<div class="wrap narrow">
+  <section style="padding-top:20px">
+    <span class="eyebrow">Help &amp; feedback</span>
+    <h1>How can we help?</h1>
+    <p class="lead" style="margin-top:16px">Find a quick answer below, or send us a message. We read every one.</p>
+    <a class="button" href="#contact">Send feedback</a>
+  </section>
 
-  <h2>Playing</h2>
+  <div class="faq">
+    <h2>Playing</h2>
   <details>
     <summary>When do new puzzles come out?</summary>
     <p>Everyone gets the next day's puzzles at the same moment: midnight UTC. That's 7 PM Central (8 PM Eastern, 5 PM Pacific) during daylight saving time, and 6 PM Central in winter. The Today card in the app shows the time where you are.</p>
@@ -77,14 +87,101 @@
     <summary>Does Flip Search work offline?</summary>
     <p>Yes. Every puzzle is built on your device, so you can play without a connection. Purchases and iCloud sync need a connection.</p>
   </details>
+  </div>
 
-  <h2>Contact</h2>
-  <p>Email <a href="mailto:flipsearch.app@gmail.com?subject=Flip%20Search">flipsearch.app@gmail.com</a>. I read every message.</p>
+  <section id="contact">
+    <span class="eyebrow">Contact us</span>
+    <h2>Send feedback or report a problem</h2>
+    <p class="muted">Tell us what happened or what you'd like to see. If you opened this page from the app, your device and app version are already filled in.</p>
 
+    <form class="form-card" id="feedback" action="https://formsubmit.co/flipsearch.app@gmail.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" id="subjectLine" value="Flip Search feedback">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://flipsearch.github.io/thanks.html">
+      <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="form-grid">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" autocomplete="name" required>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+          <p class="hint">So we can reply. We never share it.</p>
+        </div>
+        <div class="full">
+          <label for="topic">Subject</label>
+          <select id="topic" name="topic" required>
+            <option value="">Choose one…</option>
+            <option>Bug or crash</option>
+            <option>A puzzle looks wrong</option>
+            <option>Purchases or subscription</option>
+            <option>Streaks, stats or iCloud</option>
+            <option>Idea or suggestion</option>
+            <option>Puzzle or word idea</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="What happened? If it's a bug, what were you doing just before?"></textarea>
+        </div>
+        <div>
+          <label for="device">Device <span class="opt">(optional)</span></label>
+          <input id="device" name="device" placeholder="e.g. iPhone 15">
+        </div>
+        <div>
+          <label for="ios">iOS version <span class="opt">(optional)</span></label>
+          <input id="ios" name="ios_version" placeholder="e.g. 18.1">
+          <p class="hint">Settings › General › About › iOS Version</p>
+        </div>
+        <div>
+          <label for="version">Flip Search version <span class="opt">(optional)</span></label>
+          <input id="version" name="app_version" placeholder="e.g. 1.0 (12)">
+          <p class="hint">In the app: menu (☰), at the bottom.</p>
+        </div>
+        <div>
+          <label for="shot">Screenshot <span class="opt">(optional)</span></label>
+          <input id="shot" name="attachment" type="file" accept="image/*">
+        </div>
+        <div class="full">
+          <button class="button" type="submit">Send message</button>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>
+
+<div class="wrap">
   <footer class="site">
-    <a href="./">Home</a><a href="privacy.html">Privacy Policy</a>
+    <div class="links"><a href="./">Home</a><a href="privacy.html">Privacy Policy</a></div>
     <p>© 2026 Timothy Squires. All rights reserved.</p>
   </footer>
 </div>
+
+<script>
+  // The app opens this page with ?device=…&ios=…&version=…&topic=… filled in.
+  (function () {
+    var params = new URLSearchParams(location.search);
+    [["device", "device"], ["ios", "ios"], ["version", "version"]].forEach(function (pair) {
+      var value = params.get(pair[0]);
+      if (value) document.getElementById(pair[1]).value = value;
+    });
+    var topic = params.get("topic");
+    if (topic) {
+      var select = document.getElementById("topic");
+      for (var i = 0; i < select.options.length; i++) {
+        if (select.options[i].text === topic) select.selectedIndex = i;
+      }
+    }
+    document.getElementById("feedback").addEventListener("submit", function () {
+      var t = document.getElementById("topic").value || "Feedback";
+      var n = document.getElementById("name").value;
+      document.getElementById("subjectLine").value = "Flip Search: " + t + (n ? " from " + n : "");
+    });
+  })();
+</script>
 </body>
 </html>
